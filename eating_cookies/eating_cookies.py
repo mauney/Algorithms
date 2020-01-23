@@ -16,20 +16,17 @@ import sys
 #         return 4
 #     return eating_cookies(n-1) + eating_cookies(n-2) + eating_cookies(n-3)
 
-def eating_cookies(n, cache={0:1, 1:1, 2:2, 3:4}):
-    # global calls
-    # calls += 1
-    if n not in cache:
+def eating_cookies(n, cache=None):
+    if cache is None:
+        cache = [0 for _ in range(max(n + 1, 4))]
+    cache[0] = 1
+    cache[1] = 1
+    cache[2] = 2
+    cache[3] = 4
+    if cache[n] == 0:
         cache[n] = eating_cookies(n-1, cache) + eating_cookies(n-2, cache) + eating_cookies(n-3, cache)
     return cache[n]
-
-# calls = 0
-# for n in [10, 20, 30, 40, 50]:
-#     print(f'There are {eating_cookies(n)} ways for Cookie Monster to eat {n} cookies.')
-#     print(f'This took {calls} calls\n')
-#     calls = 0
-
-# ans = 10562230626642
+    
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
